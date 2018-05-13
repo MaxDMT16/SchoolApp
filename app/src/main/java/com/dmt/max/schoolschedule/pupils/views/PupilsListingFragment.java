@@ -19,6 +19,7 @@ import com.dmt.max.schoolschedule.R;
 import com.dmt.max.schoolschedule.SchoolApplication;
 import com.dmt.max.schoolschedule.adapters.PupilsRecyclerViewAdapter;
 import com.dmt.max.schoolschedule.model.pupil.Pupil;
+import com.dmt.max.schoolschedule.pupils.adapters.PupilListAdapter;
 import com.dmt.max.schoolschedule.pupils.presenters.PupilsListingPresenter;
 
 import java.util.ArrayList;
@@ -49,8 +50,8 @@ public class PupilsListingFragment extends Fragment implements PupilsListingView
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-        setRetainInstance(true);
+//        setHasOptionsMenu(true);
+//        setRetainInstance(true);
         ((SchoolApplication) getActivity().getApplication()).createPupilsListingComponent().inject(this);
     }
 
@@ -86,7 +87,7 @@ public class PupilsListingFragment extends Fragment implements PupilsListingView
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
 
         pupilsListing.setLayoutManager(layoutManager);
-        adapter = new PupilsRecyclerViewAdapter();
+        adapter = new PupilListAdapter(pupils, this);
         pupilsListing.setAdapter(adapter);
     }
 
