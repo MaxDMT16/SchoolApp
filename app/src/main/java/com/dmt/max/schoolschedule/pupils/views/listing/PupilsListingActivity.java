@@ -1,20 +1,13 @@
-package com.dmt.max.schoolschedule.pupils.views;
+package com.dmt.max.schoolschedule.pupils.views.listing;
 
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.widget.Toast;
 
 import com.dmt.max.schoolschedule.R;
 import com.dmt.max.schoolschedule.model.pupil.Pupil;
-import com.dmt.max.schoolschedule.pupils.presenters.PupilsListingPresenter;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
 
 public class PupilsListingActivity extends AppCompatActivity implements PupilsListingFragment.Callback {
 
@@ -23,6 +16,24 @@ public class PupilsListingActivity extends AppCompatActivity implements PupilsLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pupils_listing);
+        setToolbar();
+    }
+
+    private void setToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setTitle(R.string.app_name);
+            getSupportActionBar().setDisplayShowTitleEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.pupils_menu, menu);
+
+        return true;
     }
 
     @Override

@@ -1,8 +1,7 @@
-package com.dmt.max.schoolschedule.pupils.dagger;
+package com.dmt.max.schoolschedule.pupils.dagger.listing;
 
-import com.dmt.max.schoolschedule.PupilsListingActivityTest;
 import com.dmt.max.schoolschedule.module.AppModule;
-import com.dmt.max.schoolschedule.pupils.views.PupilsListingFragment;
+import com.dmt.max.schoolschedule.pupils.views.listing.PupilsListingFragment;
 
 import dagger.Subcomponent;
 

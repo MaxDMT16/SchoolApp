@@ -6,11 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.dmt.max.schoolschedule.PupilsListingActivityTest;
 import com.dmt.max.schoolschedule.R;
 import com.dmt.max.schoolschedule.SchoolApplication;
 import com.dmt.max.schoolschedule.network.SchoolSystemWebService;
-import com.dmt.max.schoolschedule.pupils.views.PupilsListingActivity;
+import com.dmt.max.schoolschedule.pupils.views.listing.PupilsListingActivity;
 
 import javax.inject.Inject;
 

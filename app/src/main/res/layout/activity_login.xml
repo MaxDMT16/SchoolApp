@@ -37,7 +37,9 @@
             android:layout_height="wrap_content"
             android:hint="Login"
             android:inputType="text"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimaryDark" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -57,7 +59,9 @@
             android:layout_height="wrap_content"
             android:hint="Password"
             android:inputType="textPassword"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimaryDark" />
     </android.support.design.widget.TextInputLayout>
 
 </android.support.constraint.ConstraintLayout>

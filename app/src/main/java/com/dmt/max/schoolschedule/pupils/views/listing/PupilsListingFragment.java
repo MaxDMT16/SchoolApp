@@ -1,26 +1,26 @@
-package com.dmt.max.schoolschedule.pupils.views;
+package com.dmt.max.schoolschedule.pupils.views.listing;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.dmt.max.schoolschedule.R;
 import com.dmt.max.schoolschedule.SchoolApplication;
-import com.dmt.max.schoolschedule.adapters.PupilsRecyclerViewAdapter;
 import com.dmt.max.schoolschedule.model.pupil.Pupil;
 import com.dmt.max.schoolschedule.pupils.adapters.PupilListAdapter;
-import com.dmt.max.schoolschedule.pupils.presenters.PupilsListingPresenter;
+import com.dmt.max.schoolschedule.pupils.presenters.listing.PupilsListingPresenter;
+import com.dmt.max.schoolschedule.pupils.views.details.PupilDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,8 +50,7 @@ public class PupilsListingFragment extends Fragment implements PupilsListingView
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setHasOptionsMenu(true);
-//        setRetainInstance(true);
+        setHasOptionsMenu(true);
         ((SchoolApplication) getActivity().getApplication()).createPupilsListingComponent().inject(this);
     }
 
@@ -72,12 +71,9 @@ public class PupilsListingFragment extends Fragment implements PupilsListingView
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        String accessToken = getAccessToken();
-
-        pupilsListingPresenter.setView(this, accessToken);
     }
 
-    private void findViews(View view){
+    private void findViews(View view) {
         pupilsListing = view.findViewById(R.id.pupilsRecyclerView);
     }
 
@@ -89,6 +85,30 @@ public class PupilsListingFragment extends Fragment implements PupilsListingView
         pupilsListing.setLayoutManager(layoutManager);
         adapter = new PupilListAdapter(pupils, this);
         pupilsListing.setAdapter(adapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Toast.makeText(getContext(), "OnResume of listing fragment", Toast.LENGTH_SHORT).show();
+
+        pupilsListingPresenter.setAccessToken(getAccessToken());
+        pupilsListingPresenter.setView(this);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_add: {
+                Intent pupilDetailsIntent = new Intent(getContext(), PupilDetailsActivity.class);
+                startActivity(pupilDetailsIntent);
+
+                Toast.makeText(getContext(), "add pupil action", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -106,8 +126,9 @@ public class PupilsListingFragment extends Fragment implements PupilsListingView
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ((SchoolApplication)getActivity().getApplication()).releasePupilsListingComponent();
+        ((SchoolApplication) getActivity().getApplication()).releasePupilsListingComponent();
     }
+
     //todo: miss onSaveInstanceState
 
     @Override
@@ -129,7 +150,29 @@ public class PupilsListingFragment extends Fragment implements PupilsListingView
         Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
     }
 
-    private String getAccessToken(){
+    @Override
+    public void deletePupil(String pupilId) {
+        pupilsListingPresenter.deletePupil(pupilId);
+    }
+
+    @Override
+    public void onDeleteSuccess() {
+        Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDeleteFailed(String message) {
+
+    }
+
+    @Override
+    public void onPupilClick(String pupilId) {
+        Intent pupilDetailsIntent = new Intent(getContext(), PupilDetailsActivity.class);
+        pupilDetailsIntent.putExtra(getResources().getString(R.string.pupilId), pupilId);
+        startActivity(pupilDetailsIntent);
+    }
+
+    private String getAccessToken() {
         Resources resources = getResources();
 
         SharedPreferences sharedPreferences = getContext().getSharedPreferences(resources.getString(R.string.shared_preferences_key), Context.MODE_PRIVATE);

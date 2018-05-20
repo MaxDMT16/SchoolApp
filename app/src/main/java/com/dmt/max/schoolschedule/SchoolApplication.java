@@ -1,14 +1,15 @@
 package com.dmt.max.schoolschedule;
 
 import android.app.Application;
-import android.os.StrictMode;
 
 import com.dmt.max.schoolschedule.component.DaggerSchoolComponent;
 import com.dmt.max.schoolschedule.component.SchoolComponent;
 import com.dmt.max.schoolschedule.module.AppModule;
 import com.dmt.max.schoolschedule.module.NetworkModule;
-import com.dmt.max.schoolschedule.pupils.dagger.PupilsListingComponent;
-import com.dmt.max.schoolschedule.pupils.dagger.PupilsListingModule;
+import com.dmt.max.schoolschedule.pupils.dagger.details.PupilDetailsComponent;
+import com.dmt.max.schoolschedule.pupils.dagger.details.PupilDetailsModule;
+import com.dmt.max.schoolschedule.pupils.dagger.listing.PupilsListingComponent;
+import com.dmt.max.schoolschedule.pupils.dagger.listing.PupilsListingModule;
 
 /**
  * Created by Max on 29.04.2018.
@@ -18,6 +19,7 @@ public class SchoolApplication extends Application {
 
     SchoolComponent schoolComponent;
     PupilsListingComponent pupilsListingComponent;
+    PupilDetailsComponent pupilDetailsComponent;
 
     @Override
     public void onCreate() {
@@ -44,4 +46,14 @@ public class SchoolApplication extends Application {
     public void releasePupilsListingComponent(){pupilsListingComponent = null;}
 
     public PupilsListingComponent getPupilsListingComponent(){return pupilsListingComponent;}
+
+
+    public PupilDetailsComponent createPupilDetailsComponent(){
+        pupilDetailsComponent = schoolComponent.plus(new PupilDetailsModule());
+        return pupilDetailsComponent;
+    }
+
+    public void releasePupilDetailsComponent(){pupilDetailsComponent = null;}
+
+    public PupilDetailsComponent getPupilDetailsComponent(){return pupilDetailsComponent;}
 }

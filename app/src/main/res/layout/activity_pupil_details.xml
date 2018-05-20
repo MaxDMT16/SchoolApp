@@ -7,12 +7,10 @@
     tools:context="com.dmt.max.schoolschedule.pupils.views.listing.PupilsListingActivity"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar" />
-
-    <fragment
-        android:id="@+id/fragment"
-        android:name="com.dmt.max.schoolschedule.pupils.views.listing.PupilsListingFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout="@layout/fragment_pupils_listing" />
+    <!--<fragment-->
+        <!--android:id="@+id/fragment"-->
+        <!--android:name="com.dmt.max.schoolschedule.pupils.views.details.PupilDetailsFragment"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--tools:layout="@layout/fragment_pupil_details" />-->
 </LinearLayout>

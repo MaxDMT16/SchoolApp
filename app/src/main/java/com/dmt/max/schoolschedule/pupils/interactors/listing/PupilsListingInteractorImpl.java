@@ -1,12 +1,10 @@
-package com.dmt.max.schoolschedule.pupils.interactors;
+package com.dmt.max.schoolschedule.pupils.interactors.listing;
 
-import com.dmt.max.schoolschedule.model.pupil.Pupil;
-import com.dmt.max.schoolschedule.model.pupil.PupilsResponse;
+import com.dmt.max.schoolschedule.model.pupil.resoponses.PupilsResponse;
 import com.dmt.max.schoolschedule.network.SchoolSystemWebService;
 
-import java.util.List;
-
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 
 /**
  * Created by Max on 13.05.2018.
@@ -23,5 +21,10 @@ public class PupilsListingInteractorImpl implements PupilsListingInteractor {
     @Override
     public Observable<PupilsResponse> getPupils(String accessToken) {
         return schoolSystemWebService.getPupils(accessToken);
+    }
+
+    @Override
+    public Observable<ResponseBody> deletePupil(String accessToken, String pupilId) {
+        return schoolSystemWebService.deletePupil(accessToken, pupilId);
     }
 }

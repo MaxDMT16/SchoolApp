@@ -1,17 +1,20 @@
 package com.dmt.max.schoolschedule.pupils.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dmt.max.schoolschedule.R;
 import com.dmt.max.schoolschedule.model.pupil.Pupil;
-import com.dmt.max.schoolschedule.pupils.views.PupilsListingView;
+import com.dmt.max.schoolschedule.pupils.views.details.PupilDetailsActivity;
+import com.dmt.max.schoolschedule.pupils.views.listing.PupilsListingView;
 
 import java.util.List;
 
@@ -41,8 +44,10 @@ public class PupilListAdapter extends RecyclerView.Adapter<PupilListAdapter.View
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.pupilFirstName.setText(pupils.get(position).getFirstName());
         holder.pupilLastName.setText(pupils.get(position).getLastName());
-        holder.pupilId = pupils.get(position).getId();
-        holder.deleteButton.setOnClickListener(holder);
+        holder.pupil = pupils.get(position);
+        holder.imageButtonDelete.setOnClickListener(holder);
+        holder.pupilFirstName.setOnClickListener(holder);
+        holder.pupilLastName.setOnClickListener(holder);
     }
 
     @Override
@@ -51,25 +56,39 @@ public class PupilListAdapter extends RecyclerView.Adapter<PupilListAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView pupilFirstName;
-        TextView pupilLastName;
-        Button deleteButton;
-        String pupilId;
+        private TextView pupilFirstName;
+        private TextView pupilLastName;
+        private ImageView imageButtonDelete;
+
+        private Pupil pupil;
 
         public ViewHolder(View itemView) {
             super(itemView);
             findViews(itemView);
+            initializePupil();
         }
 
-        private void findViews(View itemView){
+        private void initializePupil() {
+            Pupil pupil = new Pupil();
+            pupil.setFirstName(pupilFirstName.getText().toString());
+            pupil.setFirstName(pupilFirstName.getText().toString());
+        }
+
+        private void findViews(View itemView) {
             pupilFirstName = itemView.findViewById(R.id.pupilFirstName);
             pupilLastName = itemView.findViewById(R.id.pupilLastName);
-            deleteButton = itemView.findViewById(R.id.buttonDelete);
+            imageButtonDelete = itemView.findViewById(R.id.imageButtonDelete);
         }
 
         @Override
         public void onClick(View view) {
-            Toast.makeText(view.getContext(), "Delete pupil with id: " + pupilId, Toast.LENGTH_SHORT).show();
+            switch (view.getId()) {
+                case R.id.imageButtonDelete:
+                    PupilListAdapter.this.view.deletePupil(pupil.getId());
+                case R.id.pupilFirstName:
+                case R.id.pupilLastName:
+                    PupilListAdapter.this.view.onPupilClick(pupil.getId());
+            }
         }
     }
 }

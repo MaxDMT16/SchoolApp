@@ -1,12 +1,13 @@
 package com.dmt.max.schoolschedule.component;
 
-import com.dmt.max.schoolschedule.PupilsListingActivityTest;
 import com.dmt.max.schoolschedule.LoginActivity;
 import com.dmt.max.schoolschedule.main.MainActivity;
 import com.dmt.max.schoolschedule.module.AppModule;
 import com.dmt.max.schoolschedule.module.NetworkModule;
-import com.dmt.max.schoolschedule.pupils.dagger.PupilsListingComponent;
-import com.dmt.max.schoolschedule.pupils.dagger.PupilsListingModule;
+import com.dmt.max.schoolschedule.pupils.dagger.details.PupilDetailsComponent;
+import com.dmt.max.schoolschedule.pupils.dagger.details.PupilDetailsModule;
+import com.dmt.max.schoolschedule.pupils.dagger.listing.PupilsListingComponent;
+import com.dmt.max.schoolschedule.pupils.dagger.listing.PupilsListingModule;
 
 import javax.inject.Singleton;
 
@@ -21,7 +22,7 @@ import dagger.Component;
 public interface SchoolComponent {
     void inject(MainActivity schoolApplication);
     void inject(LoginActivity loginApplication);
-    void inject(PupilsListingActivityTest pupilsListingActivityTest);
 
     PupilsListingComponent plus(PupilsListingModule pupilsListingModule);
+    PupilDetailsComponent plus(PupilDetailsModule pupilsListingModule);
 }

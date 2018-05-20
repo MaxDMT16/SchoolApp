@@ -1,10 +1,10 @@
-package com.dmt.max.schoolschedule.pupils.dagger;
+package com.dmt.max.schoolschedule.pupils.dagger.listing;
 
 import com.dmt.max.schoolschedule.network.SchoolSystemWebService;
-import com.dmt.max.schoolschedule.pupils.interactors.PupilsListingInteractor;
-import com.dmt.max.schoolschedule.pupils.interactors.PupilsListingInteractorImpl;
-import com.dmt.max.schoolschedule.pupils.presenters.PupilsListingPresenter;
-import com.dmt.max.schoolschedule.pupils.presenters.PupilsListingPresenterImpl;
+import com.dmt.max.schoolschedule.pupils.interactors.listing.PupilsListingInteractor;
+import com.dmt.max.schoolschedule.pupils.interactors.listing.PupilsListingInteractorImpl;
+import com.dmt.max.schoolschedule.pupils.presenters.listing.PupilsListingPresenter;
+import com.dmt.max.schoolschedule.pupils.presenters.listing.PupilsListingPresenterImpl;
 
 import dagger.Module;
 import dagger.Provides;
