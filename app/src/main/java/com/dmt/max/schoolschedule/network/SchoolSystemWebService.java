@@ -1,5 +1,6 @@
 package com.dmt.max.schoolschedule.network;
 
+import com.dmt.max.schoolschedule.model.group.responses.GroupsResponse;
 import com.dmt.max.schoolschedule.model.login.LoginRequest;
 import com.dmt.max.schoolschedule.model.login.SuccessLoginResponse;
 import com.dmt.max.schoolschedule.model.pupil.requests.CreatePupilRequest;
@@ -28,6 +29,7 @@ public interface SchoolSystemWebService {
     @POST("public/cms-login")
     Call<SuccessLoginResponse> login(@Body LoginRequest loginRequest);
 
+    //------------------pupil-------------------------------
     @GET("admin/pupil")
     Observable<PupilsResponse> getPupils(@Header("Authorization") String accessToken);
 
@@ -42,4 +44,12 @@ public interface SchoolSystemWebService {
 
     @PUT("admin/pupil")
     Observable<ResponseBody> updatePupil(@Header("Authorization") String accessToken, @Body UpdatePupilRequest updatePupilRequest);
+
+    //-------------------group------------------------------------------
+
+    @GET("admin/group")
+    Observable<GroupsResponse> getGroups(@Header("Authorization") String accessToken);
+
+    @DELETE("admin/group")
+    Observable<ResponseBody> deleteGroup(@Header("Authorization") String accessToken, @Query("id") String groupId);
 }

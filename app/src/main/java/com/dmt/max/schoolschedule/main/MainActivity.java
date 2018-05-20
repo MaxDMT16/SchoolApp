@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.dmt.max.schoolschedule.R;
 import com.dmt.max.schoolschedule.SchoolApplication;
+import com.dmt.max.schoolschedule.groups.views.listing.GroupsListingActivity;
 import com.dmt.max.schoolschedule.network.SchoolSystemWebService;
 import com.dmt.max.schoolschedule.pupils.views.listing.PupilsListingActivity;
 
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     SchoolSystemWebService schoolSystemWebService;
 
     Button pupilsButton;
+    Button groupsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +38,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        groupsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, GroupsListingActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void findViews() {
         pupilsButton = findViewById(R.id.buttonPupils);
+        groupsButton = findViewById(R.id.buttonGroups);
     }
 }

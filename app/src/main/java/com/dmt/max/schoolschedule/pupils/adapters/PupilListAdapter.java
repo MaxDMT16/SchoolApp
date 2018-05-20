@@ -77,13 +77,13 @@ public class PupilListAdapter extends RecyclerView.Adapter<PupilListAdapter.View
         private void findViews(View itemView) {
             pupilFirstName = itemView.findViewById(R.id.pupilFirstName);
             pupilLastName = itemView.findViewById(R.id.pupilLastName);
-            imageButtonDelete = itemView.findViewById(R.id.imageButtonDelete);
+            imageButtonDelete = itemView.findViewById(R.id.imageButtonDeletePupil);
         }
 
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
-                case R.id.imageButtonDelete:
+                case R.id.imageButtonDeletePupil:
                     PupilListAdapter.this.view.deletePupil(pupil.getId());
                 case R.id.pupilFirstName:
                 case R.id.pupilLastName:
