@@ -60,7 +60,6 @@ public class GroupsListingFragment extends Fragment implements GroupsListingView
     private void initLayoutReferences() {
         recyclerView.setHasFixedSize(true);
 
-
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
 
         recyclerView.setLayoutManager(layoutManager);

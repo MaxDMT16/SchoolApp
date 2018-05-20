@@ -31,9 +31,9 @@ public class GroupsListAdapter extends RecyclerView.Adapter<GroupsListAdapter.Vi
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
-        View rootLayout = LayoutInflater.from(context).inflate(R.layout.group_view_holder, parent, false);
+        View rootView = LayoutInflater.from(context).inflate(R.layout.group_view_holder, parent, false);
 
-        return new ViewHolder(rootLayout);
+        return new ViewHolder(rootView);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class GroupsListAdapter extends RecyclerView.Adapter<GroupsListAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return 0;
+        return groups.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
