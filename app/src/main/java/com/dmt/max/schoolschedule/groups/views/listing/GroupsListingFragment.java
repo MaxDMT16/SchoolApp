@@ -1,6 +1,7 @@
 package com.dmt.max.schoolschedule.groups.views.listing;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
@@ -9,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -17,6 +19,7 @@ import com.dmt.max.schoolschedule.R;
 import com.dmt.max.schoolschedule.SchoolApplication;
 import com.dmt.max.schoolschedule.groups.adapters.GroupsListAdapter;
 import com.dmt.max.schoolschedule.groups.presenters.listing.GroupsListingPresenter;
+import com.dmt.max.schoolschedule.groups.views.details.GroupDetailsActivity;
 import com.dmt.max.schoolschedule.model.group.Group;
 
 import java.util.ArrayList;
@@ -65,6 +68,20 @@ public class GroupsListingFragment extends Fragment implements GroupsListingView
         recyclerView.setLayoutManager(layoutManager);
         adapter = new GroupsListAdapter(groups, this);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_add: {
+                Intent groupDetailsIntent = new Intent(getContext(), GroupDetailsActivity.class);
+                startActivity(groupDetailsIntent);
+
+                Toast.makeText(getContext(), "add pupil action", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -22,7 +22,8 @@
         <activity android:name=".main.MainActivity" />
         <activity android:name=".pupils.views.listing.PupilsListingActivity" />
         <activity android:name=".pupils.views.details.PupilDetailsActivity" />
-        <activity android:name=".groups.views.listing.GroupsListingActivity"></activity>
+        <activity android:name=".groups.views.listing.GroupsListingActivity" />
+        <activity android:name=".groups.views.details.GroupDetailsActivity"></activity>
     </application>
 
 </manifest>

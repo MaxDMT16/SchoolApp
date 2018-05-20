@@ -1,5 +1,6 @@
 package com.dmt.max.schoolschedule.network;
 
+import com.dmt.max.schoolschedule.model.group.requests.CreateGroupRequest;
 import com.dmt.max.schoolschedule.model.group.responses.GroupsResponse;
 import com.dmt.max.schoolschedule.model.login.LoginRequest;
 import com.dmt.max.schoolschedule.model.login.SuccessLoginResponse;
@@ -52,4 +53,7 @@ public interface SchoolSystemWebService {
 
     @DELETE("admin/group")
     Observable<ResponseBody> deleteGroup(@Header("Authorization") String accessToken, @Query("id") String groupId);
+
+    @POST("admin/group")
+    Observable<ResponseBody> createGroup(@Header("Authorization") String accessToken, @Body CreateGroupRequest createGroupRequest);
 }

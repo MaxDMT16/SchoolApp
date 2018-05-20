@@ -24,7 +24,7 @@ public class PupilsListingActivity extends AppCompatActivity implements PupilsLi
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null){
-            getSupportActionBar().setTitle(R.string.app_name);
+            getSupportActionBar().setTitle(R.string.pupils);
             getSupportActionBar().setDisplayShowTitleEnabled(true);
         }
     }
