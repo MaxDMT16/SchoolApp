@@ -3,6 +3,7 @@ package com.dmt.max.schoolschedule.groups.presenters.details;
 import com.dmt.max.schoolschedule.groups.views.details.GroupDetailsView;
 import com.dmt.max.schoolschedule.model.group.Group;
 import com.dmt.max.schoolschedule.model.group.requests.CreateGroupRequest;
+import com.dmt.max.schoolschedule.model.group.requests.UpdateGroupRequest;
 
 /**
  * Created by Max on 20.05.2018.
@@ -13,9 +14,13 @@ public interface GroupDetailsPresenter {
 
     void setRefreshToken(String refreshToken);
 
-    void createPupil(CreateGroupRequest createPupilRequest);
+    void createGroup(CreateGroupRequest createGroupRequest);
 
-    void onActionButtonClick(Group pupil);
+    void updateGroup(UpdateGroupRequest updateGroupRequest);
+
+    void requestGetGroupById(String groupId);
+
+    void onActionButtonClick(Group group);
 
     void setView(GroupDetailsView view);
 
