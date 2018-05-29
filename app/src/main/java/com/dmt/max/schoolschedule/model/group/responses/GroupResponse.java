@@ -6,7 +6,7 @@ package com.dmt.max.schoolschedule.model.group.responses;
 
 public class GroupResponse {
     private String id;
-    private String nameString;
+    private String name;
 
 
     public String getId() {
@@ -17,11 +17,11 @@ public class GroupResponse {
         this.id = id;
     }
 
-    public String getNameString() {
-        return nameString;
+    public String getName() {
+        return name;
     }
 
-    public void setNameString(String nameString) {
-        this.nameString = nameString;
+    public void setName(String name) {
+        this.name = name;
     }
 }

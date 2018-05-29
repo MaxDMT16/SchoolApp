@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">SchoolSchedule</string>
 
-    <!--<string name="base_url">http://77.47.190.101:3000/api/</string>-->
-    <string name="base_url">http://192.168.0.70:3000/api/</string>
+    <string name="base_url">http://77.47.190.101:3000/api/</string>
+    <!--<string name="base_url">http://192.168.0.70:3000/api/</string>-->
     <string name="shared_preferences_key">com.dmt.max.schoolschedule.sharedpreferences</string>
     <string name="access_token_key">com.dmt.max.schoolschedule.accesstoken</string>
     <string name="refresh_token_key">com.dmt.max.schoolschedule.refreshtoken</string>

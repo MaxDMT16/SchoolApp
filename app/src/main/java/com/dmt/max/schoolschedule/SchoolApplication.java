@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.dmt.max.schoolschedule.component.DaggerSchoolComponent;
 import com.dmt.max.schoolschedule.component.SchoolComponent;
+import com.dmt.max.schoolschedule.groups.dagger.details.GroupDetailsComponent;
+import com.dmt.max.schoolschedule.groups.dagger.details.GroupDetailsModule;
 import com.dmt.max.schoolschedule.groups.dagger.listing.GroupsListingComponent;
 import com.dmt.max.schoolschedule.groups.dagger.listing.GroupsListingModule;
 import com.dmt.max.schoolschedule.module.AppModule;
@@ -25,6 +27,7 @@ public class SchoolApplication extends Application {
     PupilDetailsComponent pupilDetailsComponent;
 
     GroupsListingComponent groupsListingComponent;
+    GroupDetailsComponent groupDetailsComponent;
 
     @Override
     public void onCreate() {
@@ -78,5 +81,15 @@ public class SchoolApplication extends Application {
 
     public void releaseGroupsListingComponent() {
         groupsListingComponent = null;
+    }
+
+
+    public GroupDetailsComponent createGroupDetailsComponent() {
+        groupDetailsComponent = schoolComponent.plus(new GroupDetailsModule());
+        return groupDetailsComponent;
+    }
+
+    public void releaseGroupDetailsComponent() {
+        groupDetailsComponent = null;
     }
 }

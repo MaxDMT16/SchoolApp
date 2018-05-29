@@ -1,6 +1,8 @@
 package com.dmt.max.schoolschedule.component;
 
 import com.dmt.max.schoolschedule.LoginActivity;
+import com.dmt.max.schoolschedule.groups.dagger.details.GroupDetailsComponent;
+import com.dmt.max.schoolschedule.groups.dagger.details.GroupDetailsModule;
 import com.dmt.max.schoolschedule.groups.dagger.listing.GroupsListingComponent;
 import com.dmt.max.schoolschedule.groups.dagger.listing.GroupsListingModule;
 import com.dmt.max.schoolschedule.main.MainActivity;
@@ -29,4 +31,5 @@ public interface SchoolComponent {
     PupilDetailsComponent plus(PupilDetailsModule pupilsListingModule);
 
     GroupsListingComponent plus(GroupsListingModule groupsListingModule);
+    GroupDetailsComponent plus(GroupDetailsModule groupsListingModule);
 }
