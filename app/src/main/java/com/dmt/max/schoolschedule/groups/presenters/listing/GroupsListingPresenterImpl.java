@@ -10,6 +10,7 @@ import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
 
 /**
  * Created by Max on 20.05.2018.
@@ -40,7 +41,23 @@ public class GroupsListingPresenterImpl implements GroupsListingPresenter {
 
     @Override
     public void deleteGroup(String groupId) {
+        groupsListingInteractor.deleteGroup(accessToken, groupId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onGroupDeleteSuccess, this::onGroupDeleteFail);
+    }
 
+    private void onGroupDeleteFail(Throwable throwable) {
+        if (isViewAttached()){
+            view.onDeleteFailed(throwable.getMessage());
+        }
+    }
+
+    private void onGroupDeleteSuccess(ResponseBody responseBody) {
+        if (isViewAttached()){
+            displayGroups();
+            view.onDeleteSuccess();
+        }
     }
 
     @Override
