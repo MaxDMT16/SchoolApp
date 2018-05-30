@@ -6,10 +6,4 @@
     android:layout_height="match_parent"
     tools:context="com.dmt.max.schoolschedule.groups.views.details.GroupDetailsActivity">
 
-    <fragment
-        android:id="@+id/fragment"
-        android:name="com.dmt.max.schoolschedule.groups.views.details.GroupDetailsFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout="@layout/fragment_group_details" />
 </android.support.constraint.ConstraintLayout>

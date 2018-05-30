@@ -51,16 +51,17 @@ public class GroupDetailsPresenterImpl implements GroupDetailsPresenter {
         groupDetailsInteractor.getGroupById(accessToken, groupId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onRequestGetByIdSuccessm, this::onRequestByIdFail);
+                .subscribe(this::onGetGroupByIdSuccess, this::onGetGroupByIdFail);
     }
 
-    private void onRequestGetByIdSuccessm(GroupResponse groupResponse) {
+    private void onGetGroupByIdSuccess(GroupResponse groupResponse) {
+        isUpdateAction = true;
         if (isViewAttached()){
             view.onRequestGroupByIdSuccess(groupResponse);
         }
     }
 
-    private void onRequestByIdFail(Throwable throwable) {
+    private void onGetGroupByIdFail(Throwable throwable) {
         if (isViewAttached()){
             view.onRequestFail(throwable.getMessage());
         }

@@ -78,9 +78,14 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsView{
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         groupDetailsPresenter.setView(this);
 
-        super.onViewCreated(view, savedInstanceState);
+        Bundle arguments = getArguments();
+        String groupId = (String) arguments.get(getResources().getString(R.string.groupId));
+
+        groupDetailsPresenter.requestGetGroupById(groupId);
     }
 
     @Override

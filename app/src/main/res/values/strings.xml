@@ -16,6 +16,7 @@
     <string name="loading_pupils">Loading pupils...</string>
 
     <string name="pupilId">pupil_id</string>
+    <string name="groupId">group_id</string>
 
     <string name="add">Add</string>
     <string name="update">Update</string>

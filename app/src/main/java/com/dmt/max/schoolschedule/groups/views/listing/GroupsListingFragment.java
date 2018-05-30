@@ -140,6 +140,8 @@ public class GroupsListingFragment extends Fragment implements GroupsListingView
 
     @Override
     public void onGroupClick(String groupId) {
-        Toast.makeText(getContext(), "Not implemented", Toast.LENGTH_SHORT).show();
+        Intent pupilDetailsIntent = new Intent(getContext(), GroupDetailsActivity.class);
+        pupilDetailsIntent.putExtra(getResources().getString(R.string.groupId), groupId);
+        startActivity(pupilDetailsIntent);
     }
 }

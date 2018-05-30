@@ -3,6 +3,7 @@ package com.dmt.max.schoolschedule.groups.presenters.listing;
 import com.dmt.max.schoolschedule.groups.interactors.listing.GroupsListingInteractor;
 import com.dmt.max.schoolschedule.groups.views.listing.GroupsListingView;
 import com.dmt.max.schoolschedule.model.group.Group;
+import com.dmt.max.schoolschedule.model.group.requests.GroupByIdRequest;
 import com.dmt.max.schoolschedule.model.group.responses.GroupsResponse;
 
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ public class GroupsListingPresenterImpl implements GroupsListingPresenter {
     private GroupsListingView view;
     private GroupsListingInteractor groupsListingInteractor;
     private List<Group> loadedGroups;
+
+    private boolean isUpdateAction;
 
     public GroupsListingPresenterImpl(GroupsListingInteractor groupsListingInteractor) {
         this.groupsListingInteractor = groupsListingInteractor;

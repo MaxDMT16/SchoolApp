@@ -75,10 +75,10 @@ public class GroupsListAdapter extends RecyclerView.Adapter<GroupsListAdapter.Vi
         @Override
         public void onClick(View view) {
             switch (view.getId()){
-                case R.id.groupName:
-                    GroupsListAdapter.this.view.onGroupClick(group.getId());
                 case R.id.imageButtonDeleteGroup:
                     GroupsListAdapter.this.view.deleteGroup(group.getId());
+                case R.id.groupName:
+                    GroupsListAdapter.this.view.onGroupClick(group.getId());
             }
         }
     }
