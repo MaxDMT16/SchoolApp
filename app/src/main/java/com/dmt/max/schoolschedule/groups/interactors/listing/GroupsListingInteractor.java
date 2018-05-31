@@ -1,5 +1,7 @@
 package com.dmt.max.schoolschedule.groups.interactors.listing;
 
+import com.dmt.max.schoolschedule.model.group.requests.GroupByIdRequest;
+import com.dmt.max.schoolschedule.model.group.responses.GroupResponse;
 import com.dmt.max.schoolschedule.model.group.responses.GroupsResponse;
 
 import io.reactivex.Observable;

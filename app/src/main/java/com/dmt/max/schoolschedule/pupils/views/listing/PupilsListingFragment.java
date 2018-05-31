@@ -142,7 +142,6 @@ public class PupilsListingFragment extends Fragment implements PupilsListingView
         this.pupils.addAll(pupils);
         pupilsListing.setVisibility(View.VISIBLE);
         adapter.notifyDataSetChanged();
-        callback.onPupilsLoaded(pupils.get(0));
     }
 
     @Override
