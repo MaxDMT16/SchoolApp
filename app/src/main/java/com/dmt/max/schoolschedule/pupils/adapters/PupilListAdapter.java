@@ -85,6 +85,7 @@ public class PupilListAdapter extends RecyclerView.Adapter<PupilListAdapter.View
             switch (view.getId()) {
                 case R.id.imageButtonDeletePupil:
                     PupilListAdapter.this.view.deletePupil(pupil.getId());
+                    return;
                 case R.id.pupilFirstName:
                 case R.id.pupilLastName:
                     PupilListAdapter.this.view.onPupilClick(pupil.getId());

@@ -77,6 +77,7 @@ public class GroupsListAdapter extends RecyclerView.Adapter<GroupsListAdapter.Vi
             switch (view.getId()){
                 case R.id.imageButtonDeleteGroup:
                     GroupsListAdapter.this.view.deleteGroup(group.getId());
+                    return;
                 case R.id.groupName:
                     GroupsListAdapter.this.view.onGroupClick(group.getId());
             }
