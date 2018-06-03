@@ -25,7 +25,9 @@
         <activity android:name=".groups.views.listing.GroupsListingActivity" />
         <activity android:name=".groups.views.details.GroupDetailsActivity" />
         <activity android:name=".teachers.views.listing.TeachersListingActivity" />
-        <activity android:name=".teachers.views.details.TeacherDetailsActivity"></activity>
+        <activity android:name=".teachers.views.details.TeacherDetailsActivity" />
+        <activity android:name=".lessons.views.listing.LessonsListingActivity" />
+        <activity android:name=".lessons.views.details.LessonDetailsActivity"></activity>
     </application>
 
 </manifest>
