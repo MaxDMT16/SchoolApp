@@ -51,11 +51,32 @@ public class TeacherDetailsFragment extends Fragment implements TeacherDetailsVi
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_teacher_details, container, false);
 
-//        findViews(rootView);
-//
-//        initListeners();
+        findViews(rootView);
+
+        initListeners();
 
         return rootView;
+    }
+
+    private void initListeners() {
+        actionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setTeacherFromUI();
+                teacherDetailsPresenter.onActionButtonClick(teacher);
+            }
+        });
+    }
+
+    private void setTeacherFromUI() {
+        teacher.setFirstName(teacherFirstName.getText().toString());
+        teacher.setLastName(teacherLastName.getText().toString());
+    }
+
+    private void findViews(View view) {
+        teacherFirstName = view.findViewById(R.id.teacherFirstNameEditText);
+        teacherLastName = view.findViewById(R.id.teacherLastNameEditText);
+        actionButton = view.findViewById(R.id.teacherActionButton);
     }
 
     @Override

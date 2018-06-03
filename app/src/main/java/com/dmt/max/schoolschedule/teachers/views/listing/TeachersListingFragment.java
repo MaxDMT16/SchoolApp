@@ -6,8 +6,10 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 import com.dmt.max.schoolschedule.R;
 import com.dmt.max.schoolschedule.SchoolApplication;
 import com.dmt.max.schoolschedule.model.teachers.Teacher;
+import com.dmt.max.schoolschedule.teachers.adapters.TeachersListAdapter;
 import com.dmt.max.schoolschedule.teachers.presenters.listing.TeachersListingPresenter;
 import com.dmt.max.schoolschedule.teachers.views.details.TeacherDetailsActivity;
 
@@ -23,7 +26,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class TeachersListingFragment extends Fragment implements TeachersListingView{
+public class TeachersListingFragment extends Fragment implements TeachersListingView {
     @Inject
     TeachersListingPresenter teachersListingPresenter;
 
@@ -49,21 +52,37 @@ public class TeachersListingFragment extends Fragment implements TeachersListing
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_teachers_listing, container, false);
 
-//        findViews(rootView);
-//
-//        initLayoutReferences();
+        findViews(rootView);
+
+        initLayoutReferences();
 
         return rootView;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    private void initLayoutReferences() {
+        recyclerView.setHasFixedSize(true);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new TeachersListAdapter(teachers, this);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void findViews(View rootView) {
+        recyclerView = rootView.findViewById(R.id.teachersRecyclerView);
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_add: {
+                Intent teacherDetailsIntent = new Intent(getContext(), TeacherDetailsActivity.class);
+                startActivity(teacherDetailsIntent);
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -74,6 +93,7 @@ public class TeachersListingFragment extends Fragment implements TeachersListing
         teachersListingPresenter.setView(this);
 
     }
+
     private String getAccessToken() {
         Resources resources = getResources();
 
