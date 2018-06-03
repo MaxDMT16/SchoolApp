@@ -8,6 +8,10 @@ import com.dmt.max.schoolschedule.groups.dagger.details.GroupDetailsComponent;
 import com.dmt.max.schoolschedule.groups.dagger.details.GroupDetailsModule;
 import com.dmt.max.schoolschedule.groups.dagger.listing.GroupsListingComponent;
 import com.dmt.max.schoolschedule.groups.dagger.listing.GroupsListingModule;
+import com.dmt.max.schoolschedule.lessons.dagger.details.LessonDetailsComponent;
+import com.dmt.max.schoolschedule.lessons.dagger.details.LessonDetailsModule;
+import com.dmt.max.schoolschedule.lessons.dagger.listing.LessonsListingComponent;
+import com.dmt.max.schoolschedule.lessons.dagger.listing.LessonsListingModule;
 import com.dmt.max.schoolschedule.module.AppModule;
 import com.dmt.max.schoolschedule.module.NetworkModule;
 import com.dmt.max.schoolschedule.pupils.dagger.details.PupilDetailsComponent;
@@ -35,6 +39,9 @@ public class SchoolApplication extends Application {
 
     TeachersListingComponent teachersListingComponent;
     TeacherDetailsComponent teacherDetailsComponent;
+
+    LessonsListingComponent lessonsListingComponent;
+    LessonDetailsComponent lessonDetailsComponent;
 
     @Override
     public void onCreate() {
@@ -116,5 +123,25 @@ public class SchoolApplication extends Application {
 
     public void releaseTeachersListingComponent() {
         teachersListingComponent = null;
+    }
+
+    public LessonsListingComponent createLessonsListingComponent() {
+        lessonsListingComponent = schoolComponent.plus(new LessonsListingModule());
+
+        return lessonsListingComponent;
+    }
+
+    public void releaseLessonsListingComponent() {
+        lessonsListingComponent = null;
+    }
+
+    public LessonDetailsComponent createLessonDetailsComponent() {
+        lessonDetailsComponent = schoolComponent.plus(new LessonDetailsModule());
+
+        return lessonDetailsComponent;
+    }
+
+    public void releaseLessonDetailsComponent() {
+        lessonDetailsComponent = null;
     }
 }

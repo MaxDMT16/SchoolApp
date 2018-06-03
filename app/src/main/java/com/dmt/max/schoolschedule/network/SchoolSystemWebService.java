@@ -4,6 +4,10 @@ import com.dmt.max.schoolschedule.model.group.requests.CreateGroupRequest;
 import com.dmt.max.schoolschedule.model.group.requests.UpdateGroupRequest;
 import com.dmt.max.schoolschedule.model.group.responses.GroupResponse;
 import com.dmt.max.schoolschedule.model.group.responses.GroupsResponse;
+import com.dmt.max.schoolschedule.model.lesson.requests.CreateLessonRequest;
+import com.dmt.max.schoolschedule.model.lesson.requests.UpdateLessonRequest;
+import com.dmt.max.schoolschedule.model.lesson.responses.LessonResponse;
+import com.dmt.max.schoolschedule.model.lesson.responses.LessonsResponse;
 import com.dmt.max.schoolschedule.model.login.LoginRequest;
 import com.dmt.max.schoolschedule.model.login.SuccessLoginResponse;
 import com.dmt.max.schoolschedule.model.pupil.requests.CreatePupilRequest;
@@ -85,5 +89,22 @@ public interface SchoolSystemWebService {
 
     @PUT("admin/teacher")
     Observable<ResponseBody> updateTeacher(@Header("Authorization") String accessToken, @Body UpdateTeacherRequest updateTeacherRequest);
+
+    //-------------------lesson------------------------------------------
+
+    @GET("admin/lesson")
+    Observable<LessonsResponse> getLessons(@Header("Authorization") String accessToken);
+
+    @GET("admin/lesson/{id}")
+    Observable<LessonResponse> getLessonById(@Header("Authorization") String accessToken, @Path("id") String lessonId);
+
+    @DELETE("admin/lesson")
+    Observable<ResponseBody> deleteLesson(@Header("Authorization") String accessToken, @Query("id") String lessonId);
+
+    @POST("admin/lesson")
+    Observable<ResponseBody> createLesson(@Header("Authorization") String accessToken, @Body CreateLessonRequest createLessonRequest);
+
+    @PUT("admin/lesson")
+    Observable<ResponseBody> updateLesson(@Header("Authorization") String accessToken, @Body UpdateLessonRequest updateLessonRequest);
 
 }

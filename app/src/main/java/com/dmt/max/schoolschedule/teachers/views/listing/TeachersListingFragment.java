@@ -142,4 +142,11 @@ public class TeachersListingFragment extends Fragment implements TeachersListing
         pupilDetailsIntent.putExtra(getResources().getString(R.string.teacherId), teacherId);
         startActivity(pupilDetailsIntent);
     }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ((SchoolApplication) getActivity().getApplication()).releaseTeachersListingComponent();
+    }
 }

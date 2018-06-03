@@ -143,4 +143,10 @@ public class TeacherDetailsFragment extends Fragment implements TeacherDetailsVi
         teacher.setFirstName(teacherResponse.getFirstName());
         teacher.setLastName(teacherResponse.getLastName());
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ((SchoolApplication) getActivity().getApplication()).releaseTeacherDetialsComponent();
+    }
 }
