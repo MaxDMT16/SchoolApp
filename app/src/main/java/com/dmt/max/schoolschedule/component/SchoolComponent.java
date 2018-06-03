@@ -12,6 +12,10 @@ import com.dmt.max.schoolschedule.pupils.dagger.details.PupilDetailsComponent;
 import com.dmt.max.schoolschedule.pupils.dagger.details.PupilDetailsModule;
 import com.dmt.max.schoolschedule.pupils.dagger.listing.PupilsListingComponent;
 import com.dmt.max.schoolschedule.pupils.dagger.listing.PupilsListingModule;
+import com.dmt.max.schoolschedule.teachers.dagger.details.TeacherDetailsComponent;
+import com.dmt.max.schoolschedule.teachers.dagger.details.TeacherDetailsModule;
+import com.dmt.max.schoolschedule.teachers.dagger.listing.TeachersListingComponent;
+import com.dmt.max.schoolschedule.teachers.dagger.listing.TeachersListingModule;
 
 import javax.inject.Singleton;
 
@@ -32,4 +36,7 @@ public interface SchoolComponent {
 
     GroupsListingComponent plus(GroupsListingModule groupsListingModule);
     GroupDetailsComponent plus(GroupDetailsModule groupsListingModule);
+
+    TeachersListingComponent plus(TeachersListingModule teachersListingModule);
+    TeacherDetailsComponent plus(TeacherDetailsModule teacherDetailsModule);
 }

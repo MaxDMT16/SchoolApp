@@ -1,10 +1,9 @@
-package com.dmt.max.schoolschedule.groups.views.listing;
+package com.dmt.max.schoolschedule.teachers.views.listing;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,26 +16,26 @@ import android.widget.Toast;
 
 import com.dmt.max.schoolschedule.R;
 import com.dmt.max.schoolschedule.SchoolApplication;
-import com.dmt.max.schoolschedule.groups.adapters.GroupsListAdapter;
-import com.dmt.max.schoolschedule.groups.presenters.listing.GroupsListingPresenter;
-import com.dmt.max.schoolschedule.groups.views.details.GroupDetailsActivity;
-import com.dmt.max.schoolschedule.model.group.Group;
+import com.dmt.max.schoolschedule.model.teachers.Teacher;
+import com.dmt.max.schoolschedule.teachers.adapters.TeachersListAdapter;
+import com.dmt.max.schoolschedule.teachers.presenters.listing.TeachersListingPresenter;
+import com.dmt.max.schoolschedule.teachers.views.details.TeacherDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class GroupsListingFragment extends Fragment implements GroupsListingView {
+public class TeachersListingFragment extends Fragment implements TeachersListingView {
     @Inject
-    GroupsListingPresenter groupsListingPresenter;
+    TeachersListingPresenter teachersListingPresenter;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
 
-    private List<Group> groups = new ArrayList<>();
+    private List<Teacher> teachers = new ArrayList<>();
 
-    public GroupsListingFragment() {
+    public TeachersListingFragment() {
         // Required empty public constructor
     }
 
@@ -44,14 +43,14 @@ public class GroupsListingFragment extends Fragment implements GroupsListingView
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        ((SchoolApplication) getActivity().getApplication()).createGroupsListingComponent().inject(this);
+        ((SchoolApplication) getActivity().getApplication()).createTeachersListingComponent().inject(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_groups_listing, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_teachers_listing, container, false);
 
         findViews(rootView);
 
@@ -66,16 +65,20 @@ public class GroupsListingFragment extends Fragment implements GroupsListingView
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
 
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new GroupsListAdapter(groups, this);
+        adapter = new TeachersListAdapter(teachers, this);
         recyclerView.setAdapter(adapter);
+    }
+
+    private void findViews(View rootView) {
+        recyclerView = rootView.findViewById(R.id.teachersRecyclerView);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add: {
-                Intent groupDetailsIntent = new Intent(getContext(), GroupDetailsActivity.class);
-                startActivity(groupDetailsIntent);
+                Intent teacherDetailsIntent = new Intent(getContext(), TeacherDetailsActivity.class);
+                startActivity(teacherDetailsIntent);
             }
         }
 
@@ -86,12 +89,9 @@ public class GroupsListingFragment extends Fragment implements GroupsListingView
     public void onResume() {
         super.onResume();
 
-        groupsListingPresenter.setAccessToken(getAccessToken());
-        groupsListingPresenter.setView(this);
-    }
+        teachersListingPresenter.setAccessToken(getAccessToken());
+        teachersListingPresenter.setView(this);
 
-    private void findViews(View view) {
-        recyclerView = view.findViewById(R.id.groupsRecyclerView);
     }
 
     private String getAccessToken() {
@@ -109,9 +109,9 @@ public class GroupsListingFragment extends Fragment implements GroupsListingView
     }
 
     @Override
-    public void showGroups(List<Group> groups) {
-        this.groups.clear();
-        this.groups.addAll(groups);
+    public void showTeachers(List<Teacher> teachers) {
+        this.teachers.clear();
+        this.teachers.addAll(teachers);
         recyclerView.setVisibility(View.VISIBLE);
         adapter.notifyDataSetChanged();
     }
@@ -122,8 +122,8 @@ public class GroupsListingFragment extends Fragment implements GroupsListingView
     }
 
     @Override
-    public void deleteGroup(String groupId) {
-        groupsListingPresenter.deleteGroup(groupId);
+    public void deleteTeacher(String teacherId) {
+        teachersListingPresenter.deleteTeacher(teacherId);
     }
 
     @Override
@@ -137,9 +137,9 @@ public class GroupsListingFragment extends Fragment implements GroupsListingView
     }
 
     @Override
-    public void onGroupClick(String groupId) {
-        Intent pupilDetailsIntent = new Intent(getContext(), GroupDetailsActivity.class);
-        pupilDetailsIntent.putExtra(getResources().getString(R.string.groupId), groupId);
+    public void onTeacherClick(String teacherId) {
+        Intent pupilDetailsIntent = new Intent(getContext(), TeacherDetailsActivity.class);
+        pupilDetailsIntent.putExtra(getResources().getString(R.string.teacherId), teacherId);
         startActivity(pupilDetailsIntent);
     }
 }

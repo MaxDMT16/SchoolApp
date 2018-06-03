@@ -9,13 +9,18 @@ import java.util.List;
  */
 
 public interface PupilsListingView {
-
     void loadingStarted();
+
     void showPupils(List<Pupil> pupils);
+
     void loadingFailed(String errorMessage);
+
     void deletePupil(String pupilId);
+
     void onDeleteSuccess();
+
     void onDeleteFailed(String message);
+
     void onPupilClick(String pupilId);
 }
 

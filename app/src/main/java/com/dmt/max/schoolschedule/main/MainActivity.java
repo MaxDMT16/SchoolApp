@@ -11,6 +11,7 @@ import com.dmt.max.schoolschedule.SchoolApplication;
 import com.dmt.max.schoolschedule.groups.views.listing.GroupsListingActivity;
 import com.dmt.max.schoolschedule.network.SchoolSystemWebService;
 import com.dmt.max.schoolschedule.pupils.views.listing.PupilsListingActivity;
+import com.dmt.max.schoolschedule.teachers.views.listing.TeachersListingActivity;
 
 import javax.inject.Inject;
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button pupilsButton;
     Button groupsButton;
+    Button teachersButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +47,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        teachersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, TeachersListingActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void findViews() {
         pupilsButton = findViewById(R.id.buttonPupils);
         groupsButton = findViewById(R.id.buttonGroups);
+        teachersButton = findViewById(R.id.buttonTeachers);
     }
 }
