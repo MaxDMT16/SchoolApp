@@ -5,6 +5,10 @@ import com.dmt.max.schoolschedule.groups.dagger.details.GroupDetailsComponent;
 import com.dmt.max.schoolschedule.groups.dagger.details.GroupDetailsModule;
 import com.dmt.max.schoolschedule.groups.dagger.listing.GroupsListingComponent;
 import com.dmt.max.schoolschedule.groups.dagger.listing.GroupsListingModule;
+import com.dmt.max.schoolschedule.lessons.dagger.details.LessonDetailsComponent;
+import com.dmt.max.schoolschedule.lessons.dagger.details.LessonDetailsModule;
+import com.dmt.max.schoolschedule.lessons.dagger.listing.LessonsListingComponent;
+import com.dmt.max.schoolschedule.lessons.dagger.listing.LessonsListingModule;
 import com.dmt.max.schoolschedule.main.MainActivity;
 import com.dmt.max.schoolschedule.module.AppModule;
 import com.dmt.max.schoolschedule.module.NetworkModule;
@@ -29,14 +33,22 @@ import dagger.Component;
 @Component(modules = {AppModule.class, NetworkModule.class})
 public interface SchoolComponent {
     void inject(MainActivity schoolApplication);
+
     void inject(LoginActivity loginApplication);
 
     PupilsListingComponent plus(PupilsListingModule pupilsListingModule);
+
     PupilDetailsComponent plus(PupilDetailsModule pupilsListingModule);
 
     GroupsListingComponent plus(GroupsListingModule groupsListingModule);
+
     GroupDetailsComponent plus(GroupDetailsModule groupsListingModule);
 
     TeachersListingComponent plus(TeachersListingModule teachersListingModule);
+
     TeacherDetailsComponent plus(TeacherDetailsModule teacherDetailsModule);
+
+    LessonsListingComponent plus(LessonsListingModule lessonsListingModule);
+
+    LessonDetailsComponent plus(LessonDetailsModule lessonDetailsModule);
 }
