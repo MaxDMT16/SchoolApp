@@ -1,109 +1,125 @@
 package com.dmt.max.schoolschedule.teachers.views.details;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.dmt.max.schoolschedule.R;
+import com.dmt.max.schoolschedule.SchoolApplication;
+import com.dmt.max.schoolschedule.model.group.responses.GroupResponse;
+import com.dmt.max.schoolschedule.model.teachers.Teacher;
+import com.dmt.max.schoolschedule.model.teachers.responses.TeacherResponse;
+import com.dmt.max.schoolschedule.teachers.presenters.details.TeacherDetailsPresenter;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link TeacherDetailsFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link TeacherDetailsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class TeacherDetailsFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import javax.inject.Inject;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class TeacherDetailsFragment extends Fragment implements TeacherDetailsView{
+    @Inject
+    TeacherDetailsPresenter teacherDetailsPresenter;
 
-    private OnFragmentInteractionListener mListener;
+    TextInputEditText teacherFirstName;
+    TextInputEditText teacherLastName;
+    Button actionButton;
+
+    private Teacher teacher;
 
     public TeacherDetailsFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TeacherDetailsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TeacherDetailsFragment newInstance(String param1, String param2) {
-        TeacherDetailsFragment fragment = new TeacherDetailsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+        ((SchoolApplication) getActivity().getApplication()).createTeacherDetailsComponent().inject(this);
+
+        teacher = new Teacher();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_teacher_details, container, false);
-    }
+        View rootView = inflater.inflate(R.layout.fragment_teacher_details, container, false);
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+//        findViews(rootView);
+//
+//        initListeners();
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+        return rootView;
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        teacherDetailsPresenter.setView(this);
+
+        Bundle arguments = getArguments();
+        String teacherId = (String) arguments.get(getResources().getString(R.string.teacherId));
+
+        teacherDetailsPresenter.requestGetTeacherById(teacherId);
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    @Override
+    public void onCreateTeacherSuccess() {
+        getActivity().finish();
+    }
+
+    @Override
+    public void onUpdateTeacherSuccess() {
+        getActivity().finish();
+    }
+
+    @Override
+    public void onRequestFail(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRequestTeacherByIdSuccess(TeacherResponse teacherResponse) {
+        setTeacher(teacherResponse);
+        fillEditTextWithTeacherData(teacherResponse);
+        changeButtonTextToUpdate();
+    }
+
+    private void changeButtonTextToUpdate() {
+        actionButton.setText(getResources().getString(R.string.update));
+    }
+
+    private void fillEditTextWithTeacherData(TeacherResponse teacherResponse) {
+        teacherFirstName.setText(teacherResponse.getFirstName());
+        teacherLastName.setText(teacherResponse.getLastName());
+    }
+
+    @Override
+    public String getAccessToken() {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences(getResources().getString(R.string.shared_preferences_key), Context.MODE_PRIVATE);
+        String accessToken = sharedPreferences.getString(getResources().getString(R.string.access_token_key), "access token");
+
+        return accessToken;
+    }
+
+    @Override
+    public String getRefreshToken() {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences(getResources().getString(R.string.shared_preferences_key), Context.MODE_PRIVATE);
+        String refreshToken = sharedPreferences.getString(getResources().getString(R.string.refresh_token_key), "refresh token");
+
+        return refreshToken;
+    }
+
+    public void setTeacher(TeacherResponse teacherResponse) {
+        teacher.setId(teacherResponse.getId());
+        teacher.setFirstName(teacherResponse.getFirstName());
+        teacher.setLastName(teacherResponse.getLastName());
     }
 }

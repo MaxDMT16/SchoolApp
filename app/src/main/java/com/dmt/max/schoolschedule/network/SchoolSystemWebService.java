@@ -10,6 +10,10 @@ import com.dmt.max.schoolschedule.model.pupil.requests.CreatePupilRequest;
 import com.dmt.max.schoolschedule.model.pupil.requests.UpdatePupilRequest;
 import com.dmt.max.schoolschedule.model.pupil.resoponses.PupilResponse;
 import com.dmt.max.schoolschedule.model.pupil.resoponses.PupilsResponse;
+import com.dmt.max.schoolschedule.model.teachers.requests.CreateTeacherRequest;
+import com.dmt.max.schoolschedule.model.teachers.requests.UpdateTeacherRequest;
+import com.dmt.max.schoolschedule.model.teachers.responses.TeacherResponse;
+import com.dmt.max.schoolschedule.model.teachers.responses.TeachersResponse;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
@@ -64,4 +68,22 @@ public interface SchoolSystemWebService {
 
     @PUT("admin/group")
     Observable<ResponseBody> updateGroup(@Header("Authorization") String accessToken, @Body UpdateGroupRequest updateGroupRequest);
+
+    //-------------------teacher------------------------------------------
+
+    @GET("admin/teacher")
+    Observable<TeachersResponse> getTeachers(@Header("Authorization") String accessToken);
+
+    @GET("admin/teacher/{id}")
+    Observable<TeacherResponse> getTeacherById(@Header("Authorization") String accessToken, @Path("id") String teacherId);
+
+    @DELETE("admin/teacher")
+    Observable<ResponseBody> deleteTeacher(@Header("Authorization") String accessToken, @Query("id") String teacherId);
+
+    @POST("admin/teacher")
+    Observable<ResponseBody> createTeacher(@Header("Authorization") String accessToken, @Body CreateTeacherRequest createTeacherRequest);
+
+    @PUT("admin/teacher")
+    Observable<ResponseBody> updateTeacher(@Header("Authorization") String accessToken, @Body UpdateTeacherRequest updateTeacherRequest);
+
 }

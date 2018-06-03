@@ -76,8 +76,6 @@ public class GroupsListingFragment extends Fragment implements GroupsListingView
             case R.id.action_add: {
                 Intent groupDetailsIntent = new Intent(getContext(), GroupDetailsActivity.class);
                 startActivity(groupDetailsIntent);
-
-                Toast.makeText(getContext(), "add pupil action", Toast.LENGTH_SHORT).show();
             }
         }
 

@@ -19,11 +19,11 @@ public class TeachersListingInteractorImpl implements TeachersListingInteractor 
 
     @Override
     public Observable<TeachersResponse> getTeachers(String accessToken) {
-        return null;
+        return schoolSystemWebService.getTeachers(accessToken);
     }
 
     @Override
     public Observable<ResponseBody> deleteTeacher(String accessToken, String teacherId) {
-        return null;
+        return schoolSystemWebService.deleteTeacher(accessToken, teacherId);
     }
 }

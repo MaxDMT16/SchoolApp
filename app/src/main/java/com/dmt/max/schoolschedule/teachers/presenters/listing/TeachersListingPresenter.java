@@ -9,7 +9,7 @@ import com.dmt.max.schoolschedule.teachers.views.listing.TeachersListingView;
 public interface TeachersListingPresenter {
     void setAccessToken(String accessToken);
     void setRefreshToken(String refreshToken);
-    void deletePupil(String teacherId);
+    void deleteTeacher(String teacherId);
     void setView(TeachersListingView view);
     void destroy();
 }

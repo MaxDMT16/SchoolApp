@@ -21,16 +21,16 @@ public class TeacherDetailsInteractorImpl implements TeacherDetailsInteractor {
 
     @Override
     public Observable<ResponseBody> createTeacher(String accessToken, CreateTeacherRequest createTeacherRequest) {
-        return null;
+        return schoolSystemWebService.createTeacher(accessToken, createTeacherRequest);
     }
 
     @Override
     public Observable<ResponseBody> updateTeacher(String accessToken, UpdateTeacherRequest updateTeacherRequest) {
-        return null;
+        return schoolSystemWebService.updateTeacher(accessToken, updateTeacherRequest);
     }
 
     @Override
     public Observable<TeacherResponse> getTeacherById(String accessToken, String teacherId) {
-        return null;
+        return schoolSystemWebService.getTeacherById(accessToken, teacherId);
     }
 }
