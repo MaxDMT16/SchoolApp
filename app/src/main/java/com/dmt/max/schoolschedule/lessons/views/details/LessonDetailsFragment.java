@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -77,7 +78,7 @@ public class LessonDetailsFragment extends Fragment implements LessonDetailsView
     }
 
     private void setLessonFromUI() {
-        lesson.setSubject("Math"); //todo: refactor
+        lesson.setSubject((String)lessonSubject.getSelectedItem());
         lesson.setTeacherId(lessonTeacherIdEditText.getText().toString());
         lesson.setGroupId(lessonGrouIdEditText.getText().toString());
     }

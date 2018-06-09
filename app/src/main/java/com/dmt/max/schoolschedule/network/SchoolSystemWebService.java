@@ -14,6 +14,10 @@ import com.dmt.max.schoolschedule.model.pupil.requests.CreatePupilRequest;
 import com.dmt.max.schoolschedule.model.pupil.requests.UpdatePupilRequest;
 import com.dmt.max.schoolschedule.model.pupil.resoponses.PupilResponse;
 import com.dmt.max.schoolschedule.model.pupil.resoponses.PupilsResponse;
+import com.dmt.max.schoolschedule.model.schedule_cell.requests.CreateScheduleCellRequest;
+import com.dmt.max.schoolschedule.model.schedule_cell.requests.UpdateScheduleCellRequest;
+import com.dmt.max.schoolschedule.model.schedule_cell.responses.ScheduleCellResponse;
+import com.dmt.max.schoolschedule.model.schedule_cell.responses.ScheduleCellsResponse;
 import com.dmt.max.schoolschedule.model.teachers.requests.CreateTeacherRequest;
 import com.dmt.max.schoolschedule.model.teachers.requests.UpdateTeacherRequest;
 import com.dmt.max.schoolschedule.model.teachers.responses.TeacherResponse;
@@ -106,5 +110,22 @@ public interface SchoolSystemWebService {
 
     @PUT("admin/lesson")
     Observable<ResponseBody> updateLesson(@Header("Authorization") String accessToken, @Body UpdateLessonRequest updateLessonRequest);
+
+    //-------------------schedule-cell------------------------------------------
+
+    @GET("admin/scheduleCell")
+    Observable<ScheduleCellsResponse> getScheduleCells(@Header("Authorization") String accessToken);
+
+    @GET("admin/schedule-cell/{id}")
+    Observable<ScheduleCellResponse> getScheduleCellById(@Header("Authorization") String accessToken, @Path("id") String scheduleCellId);
+
+    @DELETE("admin/schedule-cell")
+    Observable<ResponseBody> deleteScheduleCell(@Header("Authorization") String accessToken, @Query("id") String scheduleCellId);
+
+    @POST("admin/schedule-cell")
+    Observable<ResponseBody> createScheduleCell(@Header("Authorization") String accessToken, @Body CreateScheduleCellRequest createScheduleCellRequest);
+
+    @PUT("admin/schedule-cell")
+    Observable<ResponseBody> updateScheduleCell(@Header("Authorization") String accessToken, @Body UpdateScheduleCellRequest updateScheduleCellRequest);
 
 }
