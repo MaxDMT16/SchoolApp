@@ -1,5 +1,6 @@
 package com.dmt.max.schoolschedule.pupils.views.details;
 
+import com.dmt.max.schoolschedule.model.group.responses.GroupsResponse;
 import com.dmt.max.schoolschedule.model.pupil.resoponses.PupilResponse;
 
 /**
@@ -13,4 +14,6 @@ public interface PupilDetailsView {
     void onRequestPupilByIdSuccess(PupilResponse pupilResponse);
     String getAccessToken();
     String getRefreshToken();
+
+    void onGroupsFetchSuccess(GroupsResponse groupsResponse);
 }

@@ -1,5 +1,6 @@
 package com.dmt.max.schoolschedule.pupils.presenters.details;
 
+import com.dmt.max.schoolschedule.model.group.responses.GroupsResponse;
 import com.dmt.max.schoolschedule.model.pupil.requests.CreatePupilRequest;
 import com.dmt.max.schoolschedule.model.pupil.Pupil;
 import com.dmt.max.schoolschedule.model.pupil.requests.PupilByIdRequest;
@@ -143,6 +144,27 @@ public class PupilDetailsPresenterImpl implements PupilDetailsPresenter {
         if (isViewAttached()) {
             accessToken = view.getAccessToken();
             refreshToken = view.getRefreshToken();
+        }
+
+        fetchGroups();
+    }
+
+    private void fetchGroups(){
+        pupilDetailsInteractor.getGroups(accessToken)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onFetchGroupsSuccess, this::onFetchGroupsFail);
+    }
+
+    private void onFetchGroupsSuccess(GroupsResponse groupsResponse) {
+        if (isViewAttached()){
+            view.onGroupsFetchSuccess(groupsResponse);
+        }
+    }
+
+    private void onFetchGroupsFail(Throwable throwable) {
+        if (isViewAttached()){
+            view.onRequestFail(throwable.getMessage());
         }
     }
 

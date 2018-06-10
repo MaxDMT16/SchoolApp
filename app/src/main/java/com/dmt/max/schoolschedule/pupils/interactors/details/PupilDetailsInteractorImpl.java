@@ -1,5 +1,6 @@
 package com.dmt.max.schoolschedule.pupils.interactors.details;
 
+import com.dmt.max.schoolschedule.model.group.responses.GroupsResponse;
 import com.dmt.max.schoolschedule.model.pupil.Pupil;
 import com.dmt.max.schoolschedule.model.pupil.requests.CreatePupilRequest;
 import com.dmt.max.schoolschedule.model.pupil.requests.PupilByIdRequest;
@@ -34,5 +35,10 @@ public class PupilDetailsInteractorImpl implements PupilDetailsInteractor {
     @Override
     public Observable<ResponseBody> updatePupil(String accessToken, UpdatePupilRequest updatePupilRequest) {
         return schoolSystemWebService.updatePupil(accessToken, updatePupilRequest);
+    }
+
+    @Override
+    public Observable<GroupsResponse> getGroups(String accessToken) {
+        return schoolSystemWebService.getGroups(accessToken);
     }
 }

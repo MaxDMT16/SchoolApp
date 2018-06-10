@@ -1,5 +1,6 @@
 package com.dmt.max.schoolschedule.pupils.interactors.details;
 
+import com.dmt.max.schoolschedule.model.group.responses.GroupsResponse;
 import com.dmt.max.schoolschedule.model.pupil.requests.CreatePupilRequest;
 import com.dmt.max.schoolschedule.model.pupil.Pupil;
 import com.dmt.max.schoolschedule.model.pupil.requests.PupilByIdRequest;
@@ -17,4 +18,6 @@ public interface PupilDetailsInteractor {
     Observable<ResponseBody> createPupil(String accessToken, CreatePupilRequest createPupilRequest);
     Observable<PupilResponse> getPupilById(String accessToken, PupilByIdRequest pupilByIdRequest);
     Observable<ResponseBody> updatePupil(String accessToken, UpdatePupilRequest updatePupilRequest);
+
+    Observable<GroupsResponse> getGroups(String accessToken);
 }
