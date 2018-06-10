@@ -2,10 +2,12 @@ package com.dmt.max.schoolschedule.lessons.presenters.details;
 
 import com.dmt.max.schoolschedule.lessons.interactors.details.LessonDetailsInteractor;
 import com.dmt.max.schoolschedule.lessons.views.details.LessonDetailsView;
+import com.dmt.max.schoolschedule.model.group.responses.GroupsResponse;
 import com.dmt.max.schoolschedule.model.lesson.Lesson;
 import com.dmt.max.schoolschedule.model.lesson.requests.CreateLessonRequest;
 import com.dmt.max.schoolschedule.model.lesson.requests.UpdateLessonRequest;
 import com.dmt.max.schoolschedule.model.lesson.responses.LessonResponse;
+import com.dmt.max.schoolschedule.model.teachers.responses.TeachersResponse;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -140,6 +142,46 @@ public class LessonDetailsPresenterImpl implements LessonDetailsPresenter {
         if (isViewAttached()) {
             accessToken = view.getAccessToken();
             refreshToken = view.getRefreshToken();
+        }
+        fetchGroups();
+        fetchTeachers();
+    }
+
+    private void fetchGroups(){
+        lessonDetailsInteractor.getGroups(accessToken)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onFetchGroupsSuccess, this::onFetchGroupsFail);
+    }
+
+    private void onFetchGroupsSuccess(GroupsResponse groupsResponse) {
+        if (isViewAttached()){
+            view.onGroupsFetchSuccess(groupsResponse);
+        }
+    }
+
+    private void onFetchGroupsFail(Throwable throwable) {
+        if (isViewAttached()){
+            view.onRequestFail(throwable.getMessage());
+        }
+    }
+
+    private void fetchTeachers(){
+        lessonDetailsInteractor.getTeachers(accessToken)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onFetchTeachersSuccess, this::onFetchTeachersFail);
+    }
+
+    private void onFetchTeachersSuccess(TeachersResponse teachersResponse) {
+        if (isViewAttached()){
+            view.onTeachersFetchSuccess(teachersResponse);
+        }
+    }
+
+    private void onFetchTeachersFail(Throwable throwable) {
+        if (isViewAttached()){
+            view.onRequestFail(throwable.getMessage());
         }
     }
 
