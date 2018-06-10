@@ -27,7 +27,9 @@
         <activity android:name=".teachers.views.listing.TeachersListingActivity" />
         <activity android:name=".teachers.views.details.TeacherDetailsActivity" />
         <activity android:name=".lessons.views.listing.LessonsListingActivity" />
-        <activity android:name=".lessons.views.details.LessonDetailsActivity"></activity>
+        <activity android:name=".lessons.views.details.LessonDetailsActivity" />
+        <activity android:name=".schedule_cells.views.listing.ScheduleCellsListingActivity" />
+        <activity android:name=".schedule_cells.views.details.ScheduleCellDetailsActivity"></activity>
     </application>
 
 </manifest>

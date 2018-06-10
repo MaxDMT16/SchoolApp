@@ -18,6 +18,10 @@ import com.dmt.max.schoolschedule.pupils.dagger.details.PupilDetailsComponent;
 import com.dmt.max.schoolschedule.pupils.dagger.details.PupilDetailsModule;
 import com.dmt.max.schoolschedule.pupils.dagger.listing.PupilsListingComponent;
 import com.dmt.max.schoolschedule.pupils.dagger.listing.PupilsListingModule;
+import com.dmt.max.schoolschedule.schedule_cells.dagger.details.ScheduleCellDetailsComponent;
+import com.dmt.max.schoolschedule.schedule_cells.dagger.details.ScheduleCellDetailsModule;
+import com.dmt.max.schoolschedule.schedule_cells.dagger.listing.ScheduleCellsListingComponent;
+import com.dmt.max.schoolschedule.schedule_cells.dagger.listing.ScheduleCellsListingModule;
 import com.dmt.max.schoolschedule.teachers.dagger.details.TeacherDetailsComponent;
 import com.dmt.max.schoolschedule.teachers.dagger.details.TeacherDetailsModule;
 import com.dmt.max.schoolschedule.teachers.dagger.listing.TeachersListingComponent;
@@ -42,6 +46,9 @@ public class SchoolApplication extends Application {
 
     LessonsListingComponent lessonsListingComponent;
     LessonDetailsComponent lessonDetailsComponent;
+
+    ScheduleCellsListingComponent scheduleCellsListingComponent;
+    ScheduleCellDetailsComponent scheduleCellDetailsComponent;
 
     @Override
     public void onCreate() {
@@ -143,5 +150,25 @@ public class SchoolApplication extends Application {
 
     public void releaseLessonDetailsComponent() {
         lessonDetailsComponent = null;
+    }
+
+    public ScheduleCellsListingComponent createScheduleCellsListingComponent(){
+        scheduleCellsListingComponent = schoolComponent.plus(new ScheduleCellsListingModule());
+
+        return scheduleCellsListingComponent;
+    }
+
+    public void releaseScheduleCellsListingComponent(){
+        scheduleCellsListingComponent = null;
+    }
+
+    public ScheduleCellDetailsComponent createScheduleCellDetailsComponent(){
+        scheduleCellDetailsComponent = schoolComponent.plus(new ScheduleCellDetailsModule());
+
+        return scheduleCellDetailsComponent;
+    }
+
+    public void releaseScheduleCellDetailsCComponent(){
+        scheduleCellDetailsComponent = null;
     }
 }
