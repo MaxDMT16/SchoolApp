@@ -1,7 +1,6 @@
 package com.dmt.max.schoolschedule.pupils.views.details;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,17 +9,21 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.dmt.max.schoolschedule.R;
 import com.dmt.max.schoolschedule.SchoolApplication;
-import com.dmt.max.schoolschedule.model.pupil.requests.CreatePupilRequest;
+import com.dmt.max.schoolschedule.model.group.Group;
+import com.dmt.max.schoolschedule.model.group.responses.GroupsResponse;
 import com.dmt.max.schoolschedule.model.pupil.Pupil;
-import com.dmt.max.schoolschedule.model.pupil.requests.UpdatePupilRequest;
 import com.dmt.max.schoolschedule.model.pupil.resoponses.PupilResponse;
 import com.dmt.max.schoolschedule.pupils.presenters.details.PupilDetailsPresenter;
-import com.dmt.max.schoolschedule.pupils.views.listing.PupilsListingActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -30,11 +33,13 @@ public class PupilDetailsFragment extends Fragment implements PupilDetailsView {
 
     private TextInputEditText pupilLastNameEditText;
     private TextInputEditText pupilFirstNameEditText;
-    private TextInputEditText pupilGroupIdEditText;
+    private Spinner groupsSpinner;
 
     private Button createPupilButton;
 
     private Pupil pupil;
+    private List<Group> groups;
+    private ArrayAdapter<Group> groupsSpinnerAdapter;
 
     public PupilDetailsFragment() {
         // Required empty public constructor
@@ -47,6 +52,7 @@ public class PupilDetailsFragment extends Fragment implements PupilDetailsView {
         ((SchoolApplication) getActivity().getApplication()).createPupilDetailsComponent().inject(this);
 
         pupil = new Pupil();
+        groups = new ArrayList<>();
     }
 
     @Override
@@ -58,7 +64,7 @@ public class PupilDetailsFragment extends Fragment implements PupilDetailsView {
 
         findViews(rootView);
 
-        initListeners();
+        initViews();
 
         return rootView;
     }
@@ -75,7 +81,7 @@ public class PupilDetailsFragment extends Fragment implements PupilDetailsView {
         pupilDetailsPresenter.requestGetPupilById(pupilId);
     }
 
-    private void initListeners() {
+    private void initViews() {
         createPupilButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,12 +89,16 @@ public class PupilDetailsFragment extends Fragment implements PupilDetailsView {
                 pupilDetailsPresenter.onActionButtonClick(pupil);
             }
         });
+
+        groupsSpinnerAdapter = new ArrayAdapter<Group>(getContext(), R.layout.spinner_item, groups);
+
+        groupsSpinner.setAdapter(groupsSpinnerAdapter);
     }
 
     private void findViews(View view) {
         pupilFirstNameEditText = view.findViewById(R.id.pupilFirstNameEditText);
         pupilLastNameEditText = view.findViewById(R.id.pupilLastNameEditText);
-        pupilGroupIdEditText = view.findViewById(R.id.pupilGroupIdNameEditText);
+        groupsSpinner = view.findViewById(R.id.pupilGroupsSpinner);
 
         createPupilButton = view.findViewById(R.id.buttonCreatePupil);
     }
@@ -141,13 +151,16 @@ public class PupilDetailsFragment extends Fragment implements PupilDetailsView {
         pupil.setId(pupilResponse.getId());
         pupil.setFirstName(pupilResponse.getFirstName());
         pupil.setLastName(pupilResponse.getLastName());
-        pupil.setGroupId(pupilResponse.getGroupId());
+        pupil.setGroupId(pupilResponse.getGroup().getId());
     }
 
     private void setPupilFromUI(){
         pupil.setFirstName(pupilFirstNameEditText.getText().toString());
         pupil.setLastName(pupilLastNameEditText.getText().toString());
-        pupil.setGroupId(pupilGroupIdEditText.getText().toString());
+
+        Group selectedGroup = groups.get(groupsSpinner.getSelectedItemPosition());
+
+        pupil.setGroupId(selectedGroup.getId());
     }
 
     private void changeButtonTextToUpdate() {
@@ -157,7 +170,19 @@ public class PupilDetailsFragment extends Fragment implements PupilDetailsView {
     private void fillEditTextWithPupilData(PupilResponse pupilResponse) {
         pupilFirstNameEditText.setText(pupilResponse.getFirstName());
         pupilLastNameEditText.setText(pupilResponse.getLastName());
-        pupilGroupIdEditText.setText(pupilResponse.getGroupId());
+
+        int groupsSpinnerPosition = getGroupsSpinnerPosition(pupilResponse);
+        groupsSpinner.setSelection(groupsSpinnerPosition);
+    }
+
+    private int getGroupsSpinnerPosition(PupilResponse pupilResponse){
+        for (int i = 0; i < groups.size(); i++) {
+            if (groups.get(i).getId().equalsIgnoreCase(pupilResponse.getGroup().getId())){
+                return i;
+            }
+        }
+
+        return 0;
     }
 
     @Override
@@ -175,5 +200,12 @@ public class PupilDetailsFragment extends Fragment implements PupilDetailsView {
         String refreshToken = sharedPreferences.getString(getResources().getString(R.string.refresh_token_key), "refresh token");
 
         return refreshToken;
+    }
+
+    @Override
+    public void onGroupsFetchSuccess(GroupsResponse groupsResponse) {
+        groups.clear();
+        groups.addAll(groupsResponse.getGroups());
+        groupsSpinnerAdapter.notifyDataSetChanged();
     }
 }
