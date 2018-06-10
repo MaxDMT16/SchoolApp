@@ -17,7 +17,7 @@ public class UpdateScheduleCellRequest {
     private String lessonId;
     @SerializedName("lessonNumber")
     @Expose
-    private String lessonNumber;
+    private Integer lessonNumber;
     @SerializedName("day")
     @Expose
     private String day;
@@ -41,11 +41,11 @@ public class UpdateScheduleCellRequest {
         this.lessonId = lessonId;
     }
 
-    public String getLessonNumber() {
+    public Integer getLessonNumber() {
         return lessonNumber;
     }
 
-    public void setLessonNumber(String lessonNumber) {
+    public void setLessonNumber(Integer lessonNumber) {
         this.lessonNumber = lessonNumber;
     }
 

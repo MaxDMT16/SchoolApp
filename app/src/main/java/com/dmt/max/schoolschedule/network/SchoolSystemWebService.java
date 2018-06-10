@@ -113,7 +113,7 @@ public interface SchoolSystemWebService {
 
     //-------------------schedule-cell------------------------------------------
 
-    @GET("admin/scheduleCell")
+    @GET("admin/schedule-cell")
     Observable<ScheduleCellsResponse> getScheduleCells(@Header("Authorization") String accessToken);
 
     @GET("admin/schedule-cell/{id}")

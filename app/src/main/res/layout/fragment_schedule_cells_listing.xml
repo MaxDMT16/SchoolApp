@@ -4,10 +4,11 @@
     android:layout_height="match_parent"
     tools:context="com.dmt.max.schoolschedule.schedule_cells.views.listing.ScheduleCellsListingFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/cellsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:scrollbars="vertical"
+        android:visibility="gone" />
 
 </FrameLayout>
